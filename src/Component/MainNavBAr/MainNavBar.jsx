@@ -128,21 +128,23 @@ const MainNavBar = (props) => {
           }}>
           <Box sx={{
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
+            mr: 1
           }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 1, display: { sm: 'none' } }}
+              // sx={{ mr: 1, display: { sm: 'none' } }}
+              sx={{ display: { lg: "none", xs: "block"}}}
             >
               <MenuIcon />
             </IconButton>
             <Typography
               variant="h6"
               component="div"
-              sx={{ flexGrow: 1}}
+              sx={{ flexGrow: 1, display: { md: "block", xs: "none" } }}
             >
               SnapWaves
             </Typography>
@@ -170,7 +172,7 @@ const MainNavBar = (props) => {
                </IconButton>
              </Tooltip>
              <Menu
-               sx={{ mt: '45px' }}
+               sx={{ mt: '55px'}}
                id="menu-appbar"
                anchorEl={anchorElUser}
                anchorOrigin={{
@@ -204,7 +206,8 @@ const MainNavBar = (props) => {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            // display: { xs: 'block', sm: 'none' },
+            display: { lg: "none", xs: "block"}, 
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
