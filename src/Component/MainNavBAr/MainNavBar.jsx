@@ -5,7 +5,6 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -55,6 +54,7 @@ const MainNavBar = (props) => {
     const Search = styled('div')(({ theme }) => ({
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
+      color: 'black',
       backgroundColor: alpha(theme.palette.primary.light, 0.75),
       '&:hover': {
         backgroundColor: alpha(theme.palette.primary.light, 1),
@@ -97,7 +97,7 @@ const MainNavBar = (props) => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2}}>
         SnapWaves
       </Typography>
       <Divider />
@@ -132,7 +132,7 @@ const MainNavBar = (props) => {
             mr: 1
           }}>
             <IconButton
-              color="inherit"
+              color="black"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
@@ -144,7 +144,7 @@ const MainNavBar = (props) => {
             <Typography
               variant="h6"
               component="div"
-              sx={{ flexGrow: 1, display: { md: "block", xs: "none" } }}
+              sx={{ flexGrow: 1 , color: 'black' , display: { md: "block", xs: "none" } }}
             >
               SnapWaves
             </Typography>
