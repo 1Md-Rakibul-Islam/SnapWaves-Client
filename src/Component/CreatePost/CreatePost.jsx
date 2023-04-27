@@ -1,5 +1,6 @@
 import { Avatar, Box, Button, Input, TextField, Typography } from '@mui/material';
 import React from 'react';
+import PostCreateModal from '../Modals/PostCreateModal';
 
 const CreatePost = () => {
     return (
@@ -12,9 +13,7 @@ const CreatePost = () => {
                 </Avatar>
                 <Typography sx={{mt: 1.2}}>What's on your mind?</Typography>
             </Box>
-            <Button size='small' sx={{ borderRadius: 40, px: 3, py: 1}}>
-              Post
-            </Button>
+            <PostCreateModal ButtonName={'Create'} />
         </Box>
     );
 };

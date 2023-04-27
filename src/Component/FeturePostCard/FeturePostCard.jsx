@@ -13,7 +13,6 @@ const FeturePostCard = () => {
             alignItems: 'center',
             borderRadius: '15px',
             bgcolor: 'white'
-
             }}>
             <Avatar>
                 <img src='' alt='' />
