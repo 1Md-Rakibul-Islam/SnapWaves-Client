@@ -12,6 +12,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import React from "react";
 import PostCreateModal from "../Modals/PostCreateModal";
+import { GradeOutlined, GroupAddRounded, GroupAddSharp } from "@mui/icons-material";
 
 const RightSideNav = () => {
   const navItems = ["Home", "About", "Contact"];
@@ -42,6 +43,12 @@ const RightSideNav = () => {
         <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
           <MailIcon sx={{ mr: 2, fontSize: 32 }}></MailIcon>{" "}
           <ListItemText primary={"Messagese"} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
+          <GroupAddSharp sx={{ mr: 2, fontSize: 32 }}></GroupAddSharp>{" "}
+          <ListItemText primary={"Friends"} />
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>

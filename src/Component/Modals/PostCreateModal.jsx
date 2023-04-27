@@ -73,7 +73,7 @@ const PostCreateModal = ({ ButtonName }) => {
             >
               Create Post
             </Typography>
-            <UserCard />
+            <UserCard name={'Rakibul Islam'} />
             <TextField
               id="standard-multiline-static"
               label="What is your mind?"
