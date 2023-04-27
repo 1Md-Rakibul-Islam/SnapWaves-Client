@@ -172,9 +172,8 @@ const Home = () => {
         </Box>
         <Box
           sx={{
-            backgroundColor: "primary.main",
+            backgroundColor: "white",
             padding: "5px",
-            borderRadius: "15px",
             width: "100%",
             overflowY: "scroll",
             height: "73vh",
