@@ -27,12 +27,13 @@ import Button from "@mui/material/Button";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MailIcon from "@mui/icons-material/Mail";
+import RightSideNav from "../RightSideNav/RightSideNav";
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
 
 //
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Settings", "Logout"];
 
 const MainNavBar = (props) => {
   const { window } = props;
@@ -57,7 +58,7 @@ const MainNavBar = (props) => {
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    color: "black",
+    color: "white",
     backgroundColor: alpha(theme.palette.primary.light, 0.75),
     "&:hover": {
       backgroundColor: alpha(theme.palette.primary.light, 1),
@@ -103,7 +104,7 @@ const MainNavBar = (props) => {
         SnapWaves
       </Typography>
       <Divider />
-      <List>
+      {/* <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
@@ -111,7 +112,8 @@ const MainNavBar = (props) => {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </List> */}
+      <RightSideNav />
     </Box>
   );
 
@@ -123,7 +125,7 @@ const MainNavBar = (props) => {
       <AppBar
         component="nav"
         sx={{
-          bgcolor: "white",
+          bgcolor: "primary.main",
           boxShadow: "none",
         }}
       >
@@ -142,7 +144,7 @@ const MainNavBar = (props) => {
             }}
           >
             <IconButton
-              color="black"
+              color="white"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
@@ -154,10 +156,9 @@ const MainNavBar = (props) => {
             <Typography
               variant="h6"
               component="div"
-              color={"primary.main"}
               sx={{
                 flexGrow: 1,
-                color: "black",
+                color: "white",
                 display: { md: "block", xs: "none" },
               }}
             >
@@ -184,13 +185,13 @@ const MainNavBar = (props) => {
             </Search>
             <Box sx={{ display: { sm: "block", xs: "none" } }}>
               <IconButton>
-                <HomeIcon sx={{ fontSize: 31, mx: .5, color: 'black', ":hover": {color: "primary.main"} }} />
+                <HomeIcon sx={{ fontSize: 31, mx: .5, color: 'white' }} />
               </IconButton>
               <IconButton>
-                <NotificationsIcon sx={{ fontSize: 30, mx: .5, color: 'black', ":hover": {color: "primary.main"} }} />
+                <NotificationsIcon sx={{ fontSize: 30, mx: .5, color: 'white' }} />
               </IconButton>
               <IconButton>
-                <MailIcon sx={{ fontSize: 28, mx: .5, color: 'black', ":hover": {color: "primary.main"} }} />
+                <MailIcon sx={{ fontSize: 28, mx: .5, color: 'white' }} />
               </IconButton>
             </Box>
           </Box>

@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Box,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -12,7 +13,12 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import React from "react";
 import PostCreateModal from "../Modals/PostCreateModal";
-import { GradeOutlined, GroupAddRounded, GroupAddSharp } from "@mui/icons-material";
+import {
+  GradeOutlined,
+  GroupAddRounded,
+  GroupAddSharp,
+} from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const RightSideNav = () => {
   const navItems = ["Home", "About", "Contact"];
@@ -28,41 +34,107 @@ const RightSideNav = () => {
       }}
     >
       <ListItem disablePadding>
-        <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
-          <HomeIcon sx={{ mr: 2, fontSize: 32 }}></HomeIcon>{" "}
-          <ListItemText primary={"Home"} />
+        <ListItemButton sx={{ width: "100%", my: .5 }}>
+          <Link to={"/"}>
+            <Box
+              sx={{
+                display: "flex",
+                ":hover": { color: "primary.main" },
+                p: .5,
+                alignItems: "center",
+              }}
+            >
+              <HomeIcon sx={{ mr: 2, fontSize: 32 }}></HomeIcon>{" "}
+              <ListItemText primary={"Home"} />
+            </Box>
+          </Link>
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
-          <NotificationsIcon sx={{ mr: 2, fontSize: 32 }}></NotificationsIcon>{" "}
-          <ListItemText primary={"Notifications"} />
+        <ListItemButton sx={{ width: "100%", my: .5 }}>
+          <Link to={"/notifications"}>
+            <Box
+              sx={{
+                display: "flex",
+                ":hover": { color: "primary.main" },
+                p: .5,
+                alignItems: "center",
+              }}
+            >
+            <NotificationsIcon sx={{ mr: 2, fontSize: 32 }}></NotificationsIcon>{" "}
+            <ListItemText primary={"Notifications"} />
+            </Box>
+          </Link>
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
-          <MailIcon sx={{ mr: 2, fontSize: 32 }}></MailIcon>{" "}
-          <ListItemText primary={"Messagese"} />
+        <ListItemButton sx={{ width: "100%", my: .5 }}>
+          <Link to={"/message"}>
+            <Box
+              sx={{
+                display: "flex",
+                ":hover": { color: "primary.main" },
+                p: .5,
+                alignItems: "center",
+              }}
+            >
+            <MailIcon sx={{ mr: 2, fontSize: 32 }}></MailIcon>{" "}
+            <ListItemText primary={"Message"} />
+            </Box>
+          </Link>
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
-          <GroupAddSharp sx={{ mr: 2, fontSize: 32 }}></GroupAddSharp>{" "}
-          <ListItemText primary={"Friends"} />
+        <ListItemButton sx={{ width: "100%", my: .5 }}>
+          <Link to={"/friends"}>
+            <Box
+              sx={{
+                display: "flex",
+                ":hover": { color: "primary.main" },
+                p: .5,
+                alignItems: "center",
+              }}
+            >
+            <GroupAddSharp sx={{ mr: 2, fontSize: 32 }}></GroupAddSharp>{" "}
+            <ListItemText primary={"Friends"} />
+            </Box>
+          </Link>
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
-          <AccountCircleRoundedIcon
-            sx={{ mr: 2, fontSize: 32 }}
-          ></AccountCircleRoundedIcon>{" "}
-          <ListItemText primary={"Profile"} />
+        <ListItemButton sx={{ width: "100%", my: .5 }}>
+          <Link to={"/profile"}>
+            <Box
+              sx={{
+                display: "flex",
+                ":hover": { color: "primary.main" },
+                p: .5,
+                alignItems: "center",
+              }}
+            >
+            <AccountCircleRoundedIcon
+              sx={{ mr: 2, fontSize: 32 }}
+            ></AccountCircleRoundedIcon>{" "}
+            <ListItemText primary={"Profile"} />
+            </Box>
+          </Link>
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton sx={{ ":hover": { color: "primary.main" }, my: 1 }}>
-          <SettingsIcon sx={{ mr: 2, fontSize: 32 }}></SettingsIcon>{" "}
-          <ListItemText primary={"Settings"} />
+        <ListItemButton sx={{ width: "100%", my: .5 }}>
+          <Link to={"/settings"}>
+            <Box
+              sx={{
+                display: "flex",
+                ":hover": { color: "primary.main" },
+                p: .5,
+                alignItems: "center",
+              }}
+            >
+            <SettingsIcon sx={{ mr: 2, fontSize: 32 }}></SettingsIcon>{" "}
+            <ListItemText primary={"Settings"} />
+            </Box>
+          </Link>
         </ListItemButton>
       </ListItem>
       <ListItem
