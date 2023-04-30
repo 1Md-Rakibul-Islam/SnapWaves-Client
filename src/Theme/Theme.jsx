@@ -23,7 +23,7 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     // fontSize: '1rem',
-                    padding: '0.6rem 2.5rem'
+                    // padding: '0.6rem 2.5rem'
                     
                 }
             },

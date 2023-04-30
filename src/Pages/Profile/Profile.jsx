@@ -97,29 +97,30 @@ const Profile = () => {
         flexGrow: 1,
         width: "100%",
         overflowY: "scroll",
-        height: "80vh",
-        ml: 2,
-        "& > *": { marginTop: "1.25rem", marginBottom: "1.25rem" },
+        height: "80vh"
       }}
     >
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
-          <Paper
-            sx={{
-              p: 2,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ width: 170, height: 170 }} />
-            <Box textAlign={"center"} sx={{ mt: 2 }}>
-              <Typography variant="h5" gutterBottom>
+          <Paper>
+            <Box sx={{ width: '100%', height: 180, bgcolor: 'primary.main'}}></Box>
+            <Box
+              textAlign={"center"}
+              sx={{
+                p: 3,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                mt: -12
+              }}
+            >
+              <Avatar sx={{ width: 140, height: 140 }} />
+              <Typography variant="h5">
                 Rakibul Islam
               </Typography>
-              <Box >
+              <Box>
                 <Box sx={{ p: 2 }}>
-                  <Typography sx={{ width: 580 }} variant="body1" gutterBottom>
+                  <Typography variant="body1">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Suspendisse nec magna fermentum, dapibus purus et, hendrerit
                     urna. Vivamus eu elit id nibh volutpat fringilla.
@@ -209,9 +210,6 @@ const Profile = () => {
             )}
           </Paper>
         </Grid>
-        <Box sx={{ Width: "100%", mt: 3, gap: 2 }}>
-          <Box sx={{ Width: "100%" }}></Box>
-        </Box>
       </Grid>
     </Box>
   );
