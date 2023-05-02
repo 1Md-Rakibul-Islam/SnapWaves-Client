@@ -28,6 +28,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MailIcon from "@mui/icons-material/Mail";
 import RightSideNav from "../RightSideNav/RightSideNav";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 260;
 
@@ -217,11 +218,34 @@ const MainNavBar = (props) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {/* {settings.map((setting) => ( */}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to={'/profile'}>
+                      <Typography textAlign="center">Profile</Typography>
+                  </Link>
                 </MenuItem>
-              ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to={'/settings'}>
+                      <Typography textAlign="center">Settings</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to={'/signup'}>
+                      <Typography textAlign="center">Register</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to={'/login'}>
+                      <Typography textAlign="center">Login</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to={''}>
+                      <Typography textAlign="center">Logout</Typography>
+                  </Link>
+                </MenuItem>
+
+              {/* ))} */}
             </Menu>
           </Box>
         </Toolbar>
