@@ -20,7 +20,7 @@ const Main = () => {
   return (
     <Container>
       <MainNavBar />
-      <Box sx={{ display: "flex", my: 5 }}>
+      <Box sx={{ display: "flex", my: { md: 5, xs: 2 } }}>
         <Box
           sx={{
             display: { lg: "block", xs: "none" },

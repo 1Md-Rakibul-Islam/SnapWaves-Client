@@ -29,8 +29,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MailIcon from "@mui/icons-material/Mail";
 import RightSideNav from "../RightSideNav/RightSideNav";
 
-const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const drawerWidth = 260;
 
 //
 const settings = ["Profile", "Settings", "Logout"];

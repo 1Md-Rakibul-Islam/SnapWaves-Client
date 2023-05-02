@@ -4,7 +4,7 @@ import { School, LocationOn, Public, Work } from "@mui/icons-material";
 
 const UserDetailsInfo = () => {
   return (
-    <Box sx={{ bgcolor: 'white', p: 3 }}>
+    <Box sx={{ bgcolor: 'white', p: 3, mb: 2 }}>
       <Box sx={{display: 'flex', justifyItems: 'center', justifyContent: 'space-between'}}>
         <Typography variant="h6" gutterBottom>
           About

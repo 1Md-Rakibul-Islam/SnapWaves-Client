@@ -78,6 +78,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import UserDetailsInfo from "../../Component/UserDetailsInfo/UserDetailsInfo";
+import CreatePost from "../../Component/CreatePost/CreatePost";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -97,7 +98,8 @@ const Profile = () => {
         flexGrow: 1,
         width: "100%",
         overflowY: "scroll",
-        height: "80vh"
+        height: "100vh",
+        borderRadius: 2
       }}
     >
       <Grid container spacing={2} justifyContent="center">
@@ -131,6 +133,9 @@ const Profile = () => {
           </Paper>
 
           <UserDetailsInfo />
+
+          {/* <CreatePost /> */}
+
           <Paper sx={{ p: 2, mt: 2, Width: "100%" }}>
             <Tabs
               value={tabValue}
@@ -144,7 +149,8 @@ const Profile = () => {
             </Tabs>
             {tabValue === 0 && (
               <Box sx={{ mt: 2 }}>
-                <Typography variant="h6" gutterBottom>
+                <CreatePost />
+                <Typography sx={{mt: 5}} variant="h6" gutterBottom>
                   Recent Posts
                 </Typography>
                 <StyledDivider />
@@ -161,21 +167,22 @@ const Profile = () => {
                   Photos
                 </Typography>
                 <StyledDivider />
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+                <Box sx={{ display: "flex", justifyContent: 'center', flexWrap: "wrap", gap: 2 }}>
                   <img
-                    src="https://via.placeholder.com/150"
+                    src="https://via.placeholder.com/180"
                     alt="placeholder"
-                    style={{ margin: 5 }}
                   />
                   <img
-                    src="https://via.placeholder.com/150"
+                    src="https://via.placeholder.com/180"
                     alt="placeholder"
-                    style={{ margin: 5 }}
                   />
                   <img
-                    src="https://via.placeholder.com/150"
+                    src="https://via.placeholder.com/180"
                     alt="placeholder"
-                    style={{ margin: 5 }}
+                  />
+                  <img
+                    src="https://via.placeholder.com/180"
+                    alt="placeholder"
                   />
                 </Box>
               </Box>
