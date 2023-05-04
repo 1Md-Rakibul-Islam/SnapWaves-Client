@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -29,6 +29,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MailIcon from "@mui/icons-material/Mail";
 import RightSideNav from "../RightSideNav/RightSideNav";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const drawerWidth = 260;
 
@@ -38,6 +39,14 @@ const settings = ["Profile", "Settings", "Logout"];
 const MainNavBar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const { user, logOut } = useContext(AuthContext);
+
+  const handelLogOut = () => {
+    logOut().then().catch();
+  };
+
+  console.log(user?.email);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -153,20 +162,22 @@ const MainNavBar = (props) => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                flexGrow: 1,
-                color: "white",
-                display: { md: "block", xs: "none" },
-              }}
-            >
-              SnapWaves
-            </Typography>
+            <Link to={"/"}>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  color: "white",
+                  display: { md: "block", xs: "none" },
+                }}
+              >
+                SnapWaves
+              </Typography>
+            </Link>
           </Box>
 
-          <Box sx={{display: 'flex', alignItems: 'center'}}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <Search
               style={{
                 width: "260px",
@@ -185,13 +196,21 @@ const MainNavBar = (props) => {
             </Search>
             <Box sx={{ display: { sm: "block", xs: "none" } }}>
               <IconButton>
-                <HomeIcon sx={{ fontSize: 31, mx: .5, color: 'white' }} />
+                <Link to={"/"}>
+                  <HomeIcon sx={{ fontSize: 31, mx: 0.5, color: "white" }} />
+                </Link>
               </IconButton>
               <IconButton>
-                <NotificationsIcon sx={{ fontSize: 30, mx: .5, color: 'white' }} />
+                <Link to={"/notifications"}>
+                  <NotificationsIcon
+                    sx={{ fontSize: 30, mx: 0.5, color: "white" }}
+                  />
+                </Link>
               </IconButton>
               <IconButton>
-                <MailIcon sx={{ fontSize: 28, mx: .5, color: 'white' }} />
+                <Link to={"/message"}>
+                  <MailIcon sx={{ fontSize: 28, mx: 0.5, color: "white" }} />
+                </Link>
               </IconButton>
             </Box>
           </Box>
@@ -199,7 +218,7 @@ const MainNavBar = (props) => {
           <Box>
             <Tooltip title="Settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="" src={`${user?.photoURL}`} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -219,31 +238,37 @@ const MainNavBar = (props) => {
               onClose={handleCloseUserMenu}
             >
               {/* {settings.map((setting) => ( */}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Link to={"/profile"}>
+                  <Typography textAlign="center">Profile</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Link to={"/settings"}>
+                  <Typography textAlign="center">Settings</Typography>
+                </Link>
+              </MenuItem>
+
+              {user?.email ? (
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to={'/profile'}>
-                      <Typography textAlign="center">Profile</Typography>
-                  </Link>
+                  <Typography onClick={handelLogOut} textAlign="center">
+                    Logout
+                  </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to={'/settings'}>
-                      <Typography textAlign="center">Settings</Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to={'/signup'}>
+              ) : (
+                <>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to={"/signup"}>
                       <Typography textAlign="center">Register</Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to={'/login'}>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to={"/login"}>
                       <Typography textAlign="center">Login</Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to={''}>
-                      <Typography textAlign="center">Logout</Typography>
-                  </Link>
-                </MenuItem>
+                    </Link>
+                  </MenuItem>
+                </>
+              )}
 
               {/* ))} */}
             </Menu>
