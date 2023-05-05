@@ -1,9 +1,9 @@
-import { Avatar, Box, Card, Typography } from '@mui/material';
+import { Avatar, Box, Card, Paper, Typography } from '@mui/material';
 import React from 'react';
 
 const FeturePostCard = () => {
     return (
-        <Box sx={{
+        <Paper elevation={4} sx={{
             minWidth: '110px',
             minHeight: '180px',
             p: 1.5,
@@ -20,7 +20,7 @@ const FeturePostCard = () => {
             <Typography fontSize={13}>
                 Rakibul Islam
             </Typography>
-        </Box>
+        </Paper>
     );
 };
 

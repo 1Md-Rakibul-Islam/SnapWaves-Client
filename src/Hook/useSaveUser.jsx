@@ -28,7 +28,6 @@ export const saveUser = (name, profileImg, email, education, warks, address) => 
       .then((res) => res.json())
       .then((data) => {
         console.log("save user", data);
-        setCreatedUserEmail(email);
         toast.success("User created Successfully");
         console.log(email);
       });

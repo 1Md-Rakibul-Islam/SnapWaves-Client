@@ -1,7 +1,7 @@
 import React from "react";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
-import { PhotoProvider, PhotoView } from 'react-photo-view';
-import 'react-photo-view/dist/react-photo-view.css';
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 import {
   AspectRatio,
   AspectRatioOutlined,
@@ -23,7 +23,9 @@ import {
   Typography,
 } from "@mui/material";
 
-const PostCard = () => {
+const PostCard = ({ post }) => {
+  const { createdAt, desc, image, likes, updatedAt, userId, _id } = post;
+
   return (
     <Card
       variant="outlined"
@@ -33,7 +35,7 @@ const PostCard = () => {
         p: 2.5,
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", pb: 1.5, gap: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center", pb: 1.5, gap: 2 }}>
         <Box
           sx={{
             position: "relative",
@@ -53,8 +55,8 @@ const PostCard = () => {
             size="md"
             src="/static/logo.png"
             sx={{
-              width: 45,
-              height: 45,
+              width: 47,
+              height: 47,
               p: 0.5,
               border: "2.5px solid",
               borderColor: "primary.main",
@@ -74,13 +76,16 @@ const PostCard = () => {
             fontSize="12px"
             sx={{ color: "text.tertiary", my: 0.5 }}
           >
-            2 DAYS AGO
+            {createdAt?.length > 10  && createdAt.slice(0, 10)}
           </Typography>
         </Box>
         <IconButton variant="plain" size="sm" sx={{ ml: "auto" }}>
           <MoreHoriz />
         </IconButton>
       </Box>
+      <Typography mb={1.5} fontSize="sm">
+        {desc}
+      </Typography>
       <Card
         sx={{
           display: "flex",
@@ -90,10 +95,10 @@ const PostCard = () => {
         }}
       >
         <PhotoProvider>
-          <PhotoView src="https://i.ibb.co/zG8qRCh/20200803-153504.jpg">
+          <PhotoView src={image}>
             <img
-              style={{cursor: 'pointer'}}
-              src="https://i.ibb.co/zG8qRCh/20200803-153504.jpg"
+              style={{ cursor: "pointer" }}
+              src={image}
               alt=""
               loading="lazy"
             />
@@ -140,11 +145,8 @@ const PostCard = () => {
         fontWeight="lg"
         textColor="text.primary"
       >
-        8.1M Likes
+        {likes?.length} Likes
       </Link>
-      <Typography fontSize="sm">
-        The React component library you always wanted.....
-      </Typography>
       <Card sx={{ p: "var(--Card-padding)", display: "flex" }}>
         <IconButton size="sm" variant="plain" sx={{ ml: -1 }}>
           <Face />

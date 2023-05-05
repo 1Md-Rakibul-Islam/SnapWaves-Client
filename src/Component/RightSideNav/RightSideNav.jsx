@@ -30,7 +30,10 @@ const RightSideNav = () => {
         p: 1.5,
         borderRadius: 5,
         mt: 2,
+        width: 218,
         height: "68vh",
+        position: 'fixed',
+        mt: 11
       }}
     >
       <ListItem disablePadding>
@@ -120,7 +123,7 @@ const RightSideNav = () => {
           </Link>
         </ListItemButton>
       </ListItem>
-      <ListItem disablePadding>
+      {/* <ListItem disablePadding>
         <ListItemButton sx={{ width: "100%", my: .5 }}>
           <Link to={"/settings"}>
             <Box
@@ -136,7 +139,7 @@ const RightSideNav = () => {
             </Box>
           </Link>
         </ListItemButton>
-      </ListItem>
+      </ListItem> */}
       <ListItem
         sx={{ my: 1, display: "flex", justifyContent: "center" }}
         disablePadding

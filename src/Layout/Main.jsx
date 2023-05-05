@@ -30,7 +30,9 @@ const Main = () => {
             height: "80vh",
           }}
         >
-          <UserCard name={"Rakibul Islam"} email={"rakibul9bd@gmail.com"} />
+          <Box sx={{ position: "fixed" }}>
+            <UserCard name={"Rakibul Islam"} email={"rakibul9bd@gmail.com"} />
+          </Box>
           <RightSideNav />
         </Box>
         <Outlet></Outlet>

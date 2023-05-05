@@ -1,0 +1,67 @@
+[
+    {
+        "userId": "645402cc1a2cc857af11cd6d",
+        "desc": "Good Morning",
+        "likes": [
+            {
+                "userId": "6453f6fc1a2cc857af11cd6b"
+            }
+        ],
+        "createdAt": "2023-05-05T11:59:37.962Z",
+        "image": "https://i.ibb.co/MRMm9HG/259976169-1257685594736636-9049907582845167550-n.jpg",
+        "updatedAt": "2023-05-05T12:38:31.545Z",
+        "__v": 0
+    },
+    {
+        "userId": "6453f6fc1a2cc857af11cd6b",
+        "desc": "Happy New Year all friends! #2023",
+        "likes": [
+            {
+                "userId": "6453f6fc1a2cc857af11cd6b"
+            }
+        ],
+        "createdAt": "2023-05-05T11:59:37.962Z",
+        "image": "https://i.ibb.co/wM5CMr6/profile2.jpg",
+        "updatedAt": "2023-05-05T12:38:31.545Z",
+        "__v": 0
+    },
+    {
+        "userId": "6455131855be24506f87bc9c",
+        "desc": "Party time",
+        "likes": [
+            {
+                "userId": "6453f6fc1a2cc857af11cd6b"
+            }
+        ],
+        "createdAt": "2023-05-05T11:59:37.962Z",
+        "image": "https://i.ibb.co/gdrSfWC/baizeed.jpg",
+        "updatedAt": "2023-05-05T12:38:31.545Z",
+        "__v": 0
+    },
+    {
+        "userId": "6453f6fc1a2cc857af11cd6b",
+        "desc": "At Archery Festival",
+        "likes": [
+            {
+                "userId": "6453f6fc1a2cc857af11cd6b"
+            }
+        ],
+        "createdAt": "2023-05-05T11:59:37.962Z",
+        "image": "https://i.ibb.co/wKk7ggx/20210716-103832.jpg",
+        "updatedAt": "2023-05-05T12:38:31.545Z",
+        "__v": 0
+    },
+    {
+        "userId": "6453dd6f5eed97fa925080d1",
+        "desc": "Hello, Friends....!!",
+        "likes": [
+            {
+                "userId": "6453f6fc1a2cc857af11cd6b"
+            }
+        ],
+        "createdAt": "2023-05-05T11:59:37.962Z",
+        "image": "https://i.ibb.co/WvS5FRm/istockphoto-1391718981-170667a.jpg",
+        "updatedAt": "2023-05-05T12:38:31.545Z",
+        "__v": 0
+    }
+]

@@ -5,6 +5,7 @@ const UserCard = ({userCardStyles, name, email, image}) => {
   return (
     <Box
       sx={{
+        width: 218,
         display: "flex",
         alignItems: "center",
         columnGap: 1,

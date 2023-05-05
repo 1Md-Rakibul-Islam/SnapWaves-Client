@@ -52,11 +52,7 @@ const SignUp = () => {
       file: selectedFile,
       //   file: data.get("file"),
       name: data.get("name"),
-      password: data.get("password"),
-      email: data.get("email"),
-      password: data.get("password"),
-      email: data.get("email"),
-      password: data.get("password"),
+      password: data.get("password")
     });
 
     console.log(selectedFile);

@@ -9,12 +9,13 @@ import {
 } from "@mui/material";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import UserCard from "../UserCard/UserCard";
-import data from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import { AuthContext } from "../../Context/AuthProvider";
+import { savePost } from "../../Hook/useSavePost";
 
 const style = {
   position: "absolute",
@@ -29,18 +30,47 @@ const style = {
 };
 
 const PostCreateModal = ({ ButtonName }) => {
-
-    
-   // emoji
-   const [isPickerVisible, setPickerVisible] = useState(false);
-   const [emoji, setEmoji] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [desc, setDesc] = useState("");
+  // emoji
+  //  const [isPickerVisible, setPickerVisible] = useState(false);
+  //  const [emoji, setEmoji] = useState("");
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  console.log(emoji);
+  // console.log(emoji);
 
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(desc, selectedFile);
+
+    //new
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    const url = `https://api.imgbb.com/1/upload?key=06ce6f925ad5f14c1f00b8790294f2a5`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        if (imageData.status) {
+          savePost('6453f6fc1a2cc857af11cd6b', desc, imageData.data.url)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  
   return (
     <div>
       <Button
@@ -64,32 +94,40 @@ const PostCreateModal = ({ ButtonName }) => {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
-            <Typography
-              id="transition-modal-title"
-              textAlign={"center"}
-              variant="h6"
-              component="h2"
-            >
-              Create Post
-            </Typography>
-            <UserCard name={'Rakibul Islam'} />
-            <TextField
-              id="standard-multiline-static"
-              label="What is your mind?"
-              multiline
-              rows={3}
-              defaultValue={emoji}
-              variant="standard"
-              sx={{ width: "100%", fontSize: 50 }}
-            />
-            <label htmlFor="uploadImg" className="text-center">
-              <InsertPhotoIcon
-                sx={{ color: "primary.green", fontSize: 30, cursor: "pointer" }}
-              ></InsertPhotoIcon>
-            </label>
+          <Box>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={style}>
+              <Typography
+                id="transition-modal-title"
+                textAlign={"center"}
+                variant="h6"
+                component="h2"
+              >
+                Create Post
+              </Typography>
+              <UserCard name={"Rakibul Islam"} />
+              <TextField
+                id="desc"
+                label="What is your mind?"
+                name="desc"
+                multiline
+                rows={3}
+                // defaultValue={emoji}
+                variant="standard"
+                sx={{ width: "100%", fontSize: 50 }}
+                fullWidth
+                onChange={(event) => setDesc(event.target.value)}
+              />
+              <label htmlFor="uploadImg" className="text-center">
+                <InsertPhotoIcon
+                  sx={{
+                    color: "primary.green",
+                    fontSize: 30,
+                    cursor: "pointer",
+                  }}
+                ></InsertPhotoIcon>
+              </label>
 
-            <EmojiEmotionsIcon sx={{color: 'black', fontSize: 30, cursor: "pointer"}} onClick={ () => setPickerVisible(!isPickerVisible)} />
+              {/* <EmojiEmotionsIcon sx={{color: 'black', fontSize: 30, cursor: "pointer"}} onClick={ () => setPickerVisible(!isPickerVisible)} />
 
             <Box className={`${isPickerVisible ? 'block': 'hidden'}`}>
                 <Picker
@@ -103,15 +141,19 @@ const PostCreateModal = ({ ButtonName }) => {
                 dynamicWidth={false}
                 
                 />
-            </Box>
+            </Box> */}
 
-            <TextField
-              id="uploadImg"
-              type="file"
-              //   onChange={handleFileChange}
-              sx={{ width: "100%", mt: 2, display: "none" }}
-            />
-            <Button sx={{ width: "100%", mt: 2 }}>Post</Button>
+              <TextField
+                id="uploadImg"
+                type="file"
+                name="image"
+                onChange={handleFileChange}
+                sx={{ width: "100%", mt: 2, display: "none" }}
+              />
+              <Button onClick={handleSubmit} type="submit" fullWidth>
+                Post
+              </Button>
+            </Box>
           </Box>
         </Fade>
       </Modal>
