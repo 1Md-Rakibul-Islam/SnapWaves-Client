@@ -15,8 +15,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import UserCard from "../Component/UserCard/UserCard";
 import RightSideNav from "../Component/RightSideNav/RightSideNav";
+import { useSelector } from "react-redux";
 
 const Main = () => {
+  const currentUser = useSelector((state) => state.currentUser.user);
   return (
     <Container>
       <MainNavBar />
@@ -31,7 +33,7 @@ const Main = () => {
           }}
         >
           <Box sx={{ position: "fixed" }}>
-            <UserCard name={"Rakibul Islam"} email={"rakibul9bd@gmail.com"} />
+            <UserCard image={currentUser?.profileImg} name={currentUser?.name} email={currentUser?.email} />
           </Box>
           <RightSideNav />
         </Box>

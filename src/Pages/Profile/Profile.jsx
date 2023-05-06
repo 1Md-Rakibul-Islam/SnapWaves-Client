@@ -14,9 +14,13 @@ import {
 import { styled } from "@mui/system";
 import UserDetailsInfo from "../../Component/UserDetailsInfo/UserDetailsInfo";
 import CreatePost from "../../Component/CreatePost/CreatePost";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
+
+  const currentUser = useSelector((state) => state.currentUser.user);
+  const loading = useSelector((state) => state.currentUser.loading);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -51,23 +55,21 @@ const Profile = () => {
                 mt: -12
               }}
             >
-              <Avatar sx={{ width: 140, height: 140 }} />
+              <Avatar src={currentUser?.profileImg} sx={{ width: 140, height: 140 }} />
               <Typography variant="h5">
-                Rakibul Islam
+                {currentUser?.name}
               </Typography>
               <Box>
                 <Box sx={{ p: 2 }}>
                   <Typography variant="body1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse nec magna fermentum, dapibus purus et, hendrerit
-                    urna. Vivamus eu elit id nibh volutpat fringilla.
+                    {currentUser?.about}
                   </Typography>
                 </Box>
               </Box>
             </Box>
           </Paper>
 
-          <UserDetailsInfo />
+          <UserDetailsInfo currentUser={currentUser} />
 
           {/* <CreatePost /> */}
 
@@ -144,9 +146,7 @@ const Profile = () => {
                 </Typography>
                 <StyledDivider />
                 <Typography variant="body1" gutterBottom>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse nec magna fermentum, dapibus purus et, hendrerit
-                  urna. Vivamus eu elit id nibh volutpat fringilla.
+                  {currentUser?.about}
                 </Typography>
               </Box>
             )}

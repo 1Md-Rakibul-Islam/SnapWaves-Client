@@ -75,7 +75,7 @@ const MainNavBar = (props) => {
     return <div>Loading...</div>;
   }
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",

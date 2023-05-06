@@ -16,6 +16,7 @@ import Picker from "@emoji-mart/react";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { AuthContext } from "../../Context/AuthProvider";
 import { savePost } from "../../Hook/useSavePost";
+import { useSelector } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -32,6 +33,8 @@ const style = {
 const PostCreateModal = ({ ButtonName }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [desc, setDesc] = useState("");
+  const currentUser = useSelector((state) => state.currentUser.user);
+
   // emoji
   //  const [isPickerVisible, setPickerVisible] = useState(false);
   //  const [emoji, setEmoji] = useState("");
@@ -48,7 +51,7 @@ const PostCreateModal = ({ ButtonName }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(desc, selectedFile);
+    // console.log(desc, selectedFile);
 
     //new
     const formData = new FormData();
@@ -62,7 +65,7 @@ const PostCreateModal = ({ ButtonName }) => {
       .then((res) => res.json())
       .then((imageData) => {
         if (imageData.status) {
-          savePost('6453f6fc1a2cc857af11cd6b', desc, imageData.data.url)
+          savePost(currentUser?._id, desc, imageData.data.url)
         }
       })
       .catch((error) => {
