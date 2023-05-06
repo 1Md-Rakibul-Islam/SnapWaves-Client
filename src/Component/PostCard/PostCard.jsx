@@ -114,7 +114,7 @@ const PostCard = ({ post }) => {
             <ModeCommentOutlined />
           </IconButton>
           <IconButton variant="plain" size="sm">
-            <SendOutlined />
+            {/* <SendOutlined /> */}
           </IconButton>
         </Box>
         <Box
@@ -132,11 +132,11 @@ const PostCard = ({ post }) => {
             />
           ))}
         </Box>
-        <Box sx={{ width: 0, display: "flex", flexDirection: "row-reverse" }}>
+        {/* <Box sx={{ width: 0, display: "flex", flexDirection: "row-reverse" }}>
           <IconButton variant="plain" size="sm">
             <BookmarkBorderRoundedIcon />
           </IconButton>
-        </Box>
+        </Box> */}
       </Box>
       <Link
         component="button"

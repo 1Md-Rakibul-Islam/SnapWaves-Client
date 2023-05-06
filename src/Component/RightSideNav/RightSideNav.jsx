@@ -29,7 +29,7 @@ const RightSideNav = () => {
         backgroundColor: "white",
         p: 1.5,
         borderRadius: 5,
-        mt: 2,
+        // mt: 2,
         width: 218,
         height: "68vh",
         position: 'fixed',

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -30,13 +30,16 @@ import MailIcon from "@mui/icons-material/Mail";
 import RightSideNav from "../RightSideNav/RightSideNav";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "../../features/users/userSlice";
 
 const drawerWidth = 260;
 
-//
-const settings = ["Profile", "Settings", "Logout"];
-
 const MainNavBar = (props) => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUser.user);
+  const loading = useSelector((state) => state.currentUser.loading);
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -46,7 +49,7 @@ const MainNavBar = (props) => {
     logOut().then().catch();
   };
 
-  console.log(user?.email);
+  // console.log(user?.email);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -63,6 +66,16 @@ const MainNavBar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  useEffect(() => {
+    dispatch(getCurrentUser(user?.email));
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(currentUser);
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -218,7 +231,7 @@ const MainNavBar = (props) => {
           <Box>
             <Tooltip title="Settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src={`${user?.photoURL}`} />
+                <Avatar alt="" src={`${currentUser?.profileImg}`} />
               </IconButton>
             </Tooltip>
             <Menu
