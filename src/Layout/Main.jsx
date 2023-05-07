@@ -18,8 +18,8 @@ import RightSideNav from "../Component/RightSideNav/RightSideNav";
 import { useSelector } from "react-redux";
 
 const Main = () => {
-  const currentUser = useSelector((state) => state.currentUser.user);
-  console.log(currentUser);
+  const user = useSelector((state) => state.currentUser.user);
+  // console.log(user);
 
   return (
     <Container>
@@ -35,7 +35,7 @@ const Main = () => {
           }}
         >
           <Box sx={{ position: "fixed" }}>
-            <UserCard currentUser={currentUser} />
+            <UserCard user={user} />
           </Box>
           <RightSideNav />
         </Box>

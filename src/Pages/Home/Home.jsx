@@ -18,6 +18,8 @@ import FeturePostCard from "../../Component/FeturePostCard/FeturePostCard";
 import UserCard from "../../Component/UserCard/UserCard";
 import ActiveFriends from "../../Component/ActiveFriends/ActiveFriends";
 import User from "../../Component/User/User";
+import { PeopleAlt, PeopleAltRounded } from "@mui/icons-material";
+import { FaPeopleArrows, FaPeopleCarry } from "react-icons/fa";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -100,10 +102,10 @@ const Home = () => {
           }}
         >
           <Box
-            sx={{ display: "flex", justifyContent: "space-between", p: 1.2 }}
+            sx={{ display: "flex", justifyContent: "space-between", p: 1.5 }}
           >
-            <Typography>Message</Typography>
-            <EditCalendarIcon />
+            <Typography>Suggestion</Typography>
+            <PeopleAltRounded />
           </Box>
 
           <Box
@@ -113,17 +115,10 @@ const Home = () => {
               height: "73vh",
             }}
           >
-            <Box sx={{ width: "100%", overflowY: "scroll", height: "73vh" }}>
-              <User />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
-              <UserCard name={"Rakibul Islam"} />
+            <Box sx={{ width: "100%", overflowY: "scroll", overflowX: "hidden", height: "73vh" }}>
+              {
+                [1,2,4,6,7,3,5,6,3,6,4,4,4,4,4,4,4,]?.map(user => <User user={user} />)
+              }
             </Box>
           </Box>
         </Box>
