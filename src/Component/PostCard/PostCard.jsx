@@ -33,6 +33,8 @@ const PostCard = ({ post }) => {
         Width: "100%",
         borderRadius: 2,
         p: 2.5,
+        // height: 500,
+        // minHeight: 500
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", pb: 1.5, gap: 2 }}>
@@ -76,7 +78,7 @@ const PostCard = ({ post }) => {
             fontSize="12px"
             sx={{ color: "text.tertiary", my: 0.5 }}
           >
-            {createdAt?.length > 10  && createdAt.slice(0, 10)}
+            {createdAt?.length > 10 && createdAt.slice(0, 10)}
           </Typography>
         </Box>
         <IconButton variant="plain" size="sm" sx={{ ml: "auto" }}>
@@ -84,14 +86,15 @@ const PostCard = ({ post }) => {
         </IconButton>
       </Box>
       <Typography mb={1.5} fontSize="sm">
-        {desc}
+        {desc?.length > 20 ? desc.slice(0, 20) + "....." : desc}
       </Typography>
-      <Card
+      <Box
         sx={{
           display: "flex",
           justifyContent: "center",
           mx: -3,
           borderRadius: 0,
+          // width: '100%', height: 260, overflow: 'hidden',
         }}
       >
         <PhotoProvider>
@@ -100,11 +103,10 @@ const PostCard = ({ post }) => {
               style={{ cursor: "pointer" }}
               src={image}
               alt=""
-              loading="lazy"
             />
           </PhotoView>
         </PhotoProvider>
-      </Card>
+      </Box>
       <Box sx={{ display: "flex", alignItems: "center", mx: -1, my: 1 }}>
         <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
           <IconButton variant="plain" size="sm">

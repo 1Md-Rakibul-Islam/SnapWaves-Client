@@ -44,8 +44,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // Define an async action to fetch the current user
 export const getCurrentUser = createAsyncThunk('getCurrentUser', async (email) => {
-    console.log('emailD', email);
-  const response = await fetch(`http://localhost:5000/users?email=rakibul9bd@gmail.com`, {
+    // console.log('emailD', email);
+  const response = await fetch(`http://localhost:5000/users?email=${email}`, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',

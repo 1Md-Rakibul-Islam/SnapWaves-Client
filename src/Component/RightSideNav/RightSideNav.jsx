@@ -21,7 +21,6 @@ import {
 import { Link } from "react-router-dom";
 
 const RightSideNav = () => {
-  const navItems = ["Home", "About", "Contact"];
 
   return (
     <List
@@ -30,10 +29,10 @@ const RightSideNav = () => {
         p: 1.5,
         borderRadius: 5,
         // mt: 2,
-        width: 218,
-        height: "68vh",
+        width: 231,
+        // height: "50vh",
         position: 'fixed',
-        mt: 11
+        mt: {sx: 0, md: 26}
       }}
     >
       <ListItem disablePadding>
@@ -123,23 +122,6 @@ const RightSideNav = () => {
           </Link>
         </ListItemButton>
       </ListItem>
-      {/* <ListItem disablePadding>
-        <ListItemButton sx={{ width: "100%", my: .5 }}>
-          <Link to={"/settings"}>
-            <Box
-              sx={{
-                display: "flex",
-                ":hover": { color: "primary.main" },
-                p: .5,
-                alignItems: "center",
-              }}
-            >
-            <SettingsIcon sx={{ mr: 2, fontSize: 32 }}></SettingsIcon>{" "}
-            <ListItemText primary={"Settings"} />
-            </Box>
-          </Link>
-        </ListItemButton>
-      </ListItem> */}
       <ListItem
         sx={{ my: 1, display: "flex", justifyContent: "center" }}
         disablePadding

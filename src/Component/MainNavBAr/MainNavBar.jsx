@@ -69,7 +69,7 @@ const MainNavBar = (props) => {
 
   useEffect(() => {
     dispatch(getCurrentUser(user?.email));
-  }, [dispatch]);
+  }, [user?.email]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -126,15 +126,6 @@ const MainNavBar = (props) => {
         SnapWaves
       </Typography>
       <Divider />
-      {/* <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
       <RightSideNav />
     </Box>
   );

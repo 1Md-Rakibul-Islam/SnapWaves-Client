@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -14,13 +14,25 @@ import {
 import { styled } from "@mui/system";
 import UserDetailsInfo from "../../Component/UserDetailsInfo/UserDetailsInfo";
 import CreatePost from "../../Component/CreatePost/CreatePost";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyPosts } from "../../features/posts/myPostsSlice";
+import PostCard from "../../Component/PostCard/PostCard";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
 
   const currentUser = useSelector((state) => state.currentUser.user);
   const loading = useSelector((state) => state.currentUser.loading);
+
+  const dispatch = useDispatch();
+  const myPosts = useSelector((state) => state.getMyPosts.posts);
+  const loadin = useSelector((state) => state.getMyPosts.loading);
+
+  useEffect(() => {
+    dispatch(getMyPosts(currentUser?._id));
+  }, [currentUser?._id]);
+
+  console.log(myPosts);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -38,13 +50,15 @@ const Profile = () => {
         width: "100%",
         overflowY: "scroll",
         height: "100vh",
-        borderRadius: 2
+        borderRadius: 2,
       }}
     >
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
           <Paper>
-            <Box sx={{ width: '100%', height: 180, bgcolor: 'primary.main'}}></Box>
+            <Box
+              sx={{ width: "100%", height: 180, bgcolor: "primary.main" }}
+            ></Box>
             <Box
               textAlign={"center"}
               sx={{
@@ -52,18 +66,17 @@ const Profile = () => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                mt: -12
+                mt: -12,
               }}
             >
-              <Avatar src={currentUser?.profileImg} sx={{ width: 140, height: 140 }} />
-              <Typography variant="h5">
-                {currentUser?.name}
-              </Typography>
+              <Avatar
+                src={currentUser?.profileImg}
+                sx={{ width: 140, height: 140 }}
+              />
+              <Typography variant="h5">{currentUser?.name}</Typography>
               <Box>
                 <Box sx={{ p: 2 }}>
-                  <Typography variant="body1">
-                    {currentUser?.about}
-                  </Typography>
+                  <Typography variant="body1">{currentUser?.about}</Typography>
                 </Box>
               </Box>
             </Box>
@@ -87,15 +100,24 @@ const Profile = () => {
             {tabValue === 0 && (
               <Box sx={{ mt: 2 }}>
                 <CreatePost />
-                <Typography sx={{mt: 5}} variant="h6" gutterBottom>
+                <Typography sx={{ mt: 5 }} variant="h6" gutterBottom>
                   Recent Posts
                 </Typography>
                 <StyledDivider />
-                <Typography variant="body1" gutterBottom>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse nec magna fermentum, dapibus purus et, hendrerit
-                  urna. Vivamus eu elit id nibh volutpat fringilla.
-                </Typography>
+                <Grid container spacing={2} justifyContent="center" >
+                  {myPosts?.map((post) => (
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                      key={post.id}
+                      variant="body1"
+                      gutterBottom
+                    >
+                      <PostCard post={post} />{" "}
+                    </Grid>
+                  ))}
+                </Grid>
               </Box>
             )}
             {tabValue === 1 && (
@@ -104,7 +126,14 @@ const Profile = () => {
                   Photos
                 </Typography>
                 <StyledDivider />
-                <Box sx={{ display: "flex", justifyContent: 'center', flexWrap: "wrap", gap: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    gap: 2,
+                  }}
+                >
                   <img
                     src="https://via.placeholder.com/180"
                     alt="placeholder"

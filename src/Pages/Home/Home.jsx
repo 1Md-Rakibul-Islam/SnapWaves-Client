@@ -17,6 +17,7 @@ import CreatePost from "../../Component/CreatePost/CreatePost";
 import FeturePostCard from "../../Component/FeturePostCard/FeturePostCard";
 import UserCard from "../../Component/UserCard/UserCard";
 import ActiveFriends from "../../Component/ActiveFriends/ActiveFriends";
+import User from "../../Component/User/User";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -113,7 +114,7 @@ const Home = () => {
             }}
           >
             <Box sx={{ width: "100%", overflowY: "scroll", height: "73vh" }}>
-              <UserCard name={"Rakibul Islam"} />
+              <User />
               <UserCard name={"Rakibul Islam"} />
               <UserCard name={"Rakibul Islam"} />
               <UserCard name={"Rakibul Islam"} />

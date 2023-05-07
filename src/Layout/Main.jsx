@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 
 const Main = () => {
   const currentUser = useSelector((state) => state.currentUser.user);
+  console.log(currentUser);
+
   return (
     <Container>
       <MainNavBar />
@@ -33,7 +35,7 @@ const Main = () => {
           }}
         >
           <Box sx={{ position: "fixed" }}>
-            <UserCard image={currentUser?.profileImg} name={currentUser?.name} email={currentUser?.email} />
+            <UserCard currentUser={currentUser} />
           </Box>
           <RightSideNav />
         </Box>

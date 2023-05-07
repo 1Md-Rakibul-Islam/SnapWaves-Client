@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Backdrop,
   Box,
   Button,
@@ -65,7 +66,7 @@ const PostCreateModal = ({ ButtonName }) => {
       .then((res) => res.json())
       .then((imageData) => {
         if (imageData.status) {
-          savePost(currentUser?._id, desc, imageData.data.url)
+          savePost(currentUser?._id, desc, imageData.data.url);
         }
       })
       .catch((error) => {
@@ -73,7 +74,6 @@ const PostCreateModal = ({ ButtonName }) => {
       });
   };
 
-  
   return (
     <div>
       <Button
@@ -107,7 +107,30 @@ const PostCreateModal = ({ ButtonName }) => {
               >
                 Create Post
               </Typography>
-              <UserCard name={"Rakibul Islam"} />
+
+              <Box
+                sx={{
+                  width: 231,
+                  display: "flex",
+                  alignItems: "center",
+                  columnGap: 1,
+                  backgroundColor: "white",
+                  p: 1.5,
+                  borderRadius: 5,
+                }}
+              >
+                <Avatar src={currentUser?.profileImg} sx={{ bgcolor: "" }} aria-label="recipe" />
+                <Box>
+                  <Typography
+                    fontWeight={10}
+                    fontSize={16}
+                    sx={{ fontStyle: "bold" }}
+                  >
+                    {currentUser?.name}
+                  </Typography>
+                  {/* <Typography fontSize={14}>{currentUser?.email}</Typography> */}
+                </Box>
+              </Box>
               <TextField
                 id="desc"
                 label="What is your mind?"
