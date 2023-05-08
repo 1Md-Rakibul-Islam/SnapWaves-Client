@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
@@ -6,7 +6,9 @@ import {
   AspectRatio,
   AspectRatioOutlined,
   Face,
+  Favorite,
   FavoriteBorder,
+  ModeComment,
   ModeCommentOutlined,
   MoreHoriz,
   Padding,
@@ -22,9 +24,21 @@ import {
   Link,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+import { likePost } from "../../api/PostsRequests";
 
 const PostCard = ({ post }) => {
   const { createdAt, desc, image, likes, updatedAt, userId, _id } = post;
+
+  const currentUser = useSelector((state) => state.currentUser.user);
+  const [reacted, setReacted] = useState(likes?.includes(currentUser?._id));
+  const [reacts, setReacts] = useState(likes?.length);
+
+  const handleLike = () => {
+    likePost(_id, currentUser?._id);
+    setReacted((prev) => !prev);
+    reacted ? setReacts((prev) => prev - 1) : setReacts((prev) => prev + 1)
+  }
 
   return (
     <Card
@@ -109,11 +123,11 @@ const PostCard = ({ post }) => {
       </Box>
       <Box sx={{ display: "flex", alignItems: "center", mx: -1, my: 1 }}>
         <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
-          <IconButton variant="plain" size="sm">
-            <FavoriteBorder />
+          <IconButton color={`${reacted ? 'error': 'white'}`} onClick={handleLike} variant="plain" size="sm">
+            <Favorite />
           </IconButton>
           <IconButton variant="plain" size="sm">
-            <ModeCommentOutlined />
+            <ModeComment />
           </IconButton>
           <IconButton variant="plain" size="sm">
             {/* <SendOutlined /> */}
@@ -147,7 +161,7 @@ const PostCard = ({ post }) => {
         fontWeight="lg"
         textColor="text.primary"
       >
-        {likes?.length} Likes
+        {reacts} Likes
       </Link>
       <Card sx={{ p: "var(--Card-padding)", display: "flex" }}>
         <IconButton size="sm" variant="plain" sx={{ ml: -1 }}>

@@ -32,7 +32,7 @@ const Profile = () => {
     dispatch(getMyPosts(currentUser?._id));
   }, [currentUser?._id]);
 
-  console.log(myPosts);
+  // console.log(myPosts);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);

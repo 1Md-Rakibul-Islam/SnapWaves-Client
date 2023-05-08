@@ -12,5 +12,5 @@ const API = axios.create({ baseURL: 'http://localhost:5000' });
 //   });
 
 export const fetchTimelinePosts= (id)=> API.get(`/posts/${id}/timeline`);
-export const fetchMyPosts= (id)=> API.get(`/posts/${id}/me`);
+export const fetchPostsByUser= (id)=> API.get(`/posts/user/${id}`);
 export const likePost=(id, userId)=>API.put(`posts/${id}/like`, {userId: userId})

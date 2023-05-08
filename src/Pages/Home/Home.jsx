@@ -1,39 +1,45 @@
-import {
-  Avatar,
-  Box,
-  CardHeader,
-  CardMedia,
-  Container,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import EditCalendarIcon from "@mui/icons-material/EditCalendar";
-
+import { Box, Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import RightSideNav from "../../Component/RightSideNav/RightSideNav";
 import PostCard from "../../Component/PostCard/PostCard";
 import CreatePost from "../../Component/CreatePost/CreatePost";
 import FeturePostCard from "../../Component/FeturePostCard/FeturePostCard";
-import UserCard from "../../Component/UserCard/UserCard";
 import ActiveFriends from "../../Component/ActiveFriends/ActiveFriends";
 import User from "../../Component/User/User";
-import { PeopleAlt, PeopleAltRounded } from "@mui/icons-material";
-import { FaPeopleArrows, FaPeopleCarry } from "react-icons/fa";
+import { PeopleAltRounded } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../features/users/usersSlice";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const currentUser = useSelector((state) => state.currentUser.user);
+  const currentUsers = useSelector((state) => state.currentUser.user);
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.getUsers.users);
+  const loadin = useSelector((state) => state.getUsers.loading);
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [users]);
+
+  // console.log(users);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('http://localhost:5000/posts');
+      const response = await fetch("http://localhost:5000/posts");
       const data = await response.json();
       setPosts(data);
     };
     fetchPosts();
   }, [posts]);
 
-  console.log(posts);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch("http://localhost:5000/posts");
+      const data = await response.json();
+      setPosts(data);
+    };
+    fetchPosts();
+  }, [posts]);
 
   return (
     <Container
@@ -115,10 +121,19 @@ const Home = () => {
               height: "73vh",
             }}
           >
-            <Box sx={{ width: "100%", overflowY: "scroll", overflowX: "hidden", height: "73vh" }}>
-              {
-                [1,2,4,6,7,3,5,6,3,6,4,4,4,4,4,4,4,]?.map(user => <User user={user} />)
-              }
+            <Box
+              sx={{
+                width: "100%",
+                overflowY: "scroll",
+                overflowX: "hidden",
+                height: "73vh",
+              }}
+            >
+              {users?.result
+                ?.filter((user) => user?._id !== currentUser?._id)
+                ?.map((user) => (
+                  <User key={user?._id} user={user} />
+                ))}
             </Box>
           </Box>
         </Box>

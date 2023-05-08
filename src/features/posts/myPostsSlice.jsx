@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchMyPosts } from "../../api/PostsRequests";
+import { fetchPostsByUser } from "../../api/PostsRequests";
 
 // Define an async action to fetch the current user
 export const getMyPosts = createAsyncThunk("getMyPosts", async (id) => {
   // console.log("userId", id);
-  const { data } = await fetchMyPosts(id);
+  const { data } = await fetchPostsByUser(id);
   // console.log(data);
   return data;
 });
