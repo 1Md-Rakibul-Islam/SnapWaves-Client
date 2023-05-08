@@ -25,20 +25,35 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { likePost } from "../../api/PostsRequests";
+import { commentPost, likePost } from "../../api/PostsRequests";
+import { toast } from "react-hot-toast";
+import CommentsOpenModal from "../Modals/CommentsOpenModal";
 
 const PostCard = ({ post }) => {
-  const { createdAt, desc, image, likes, updatedAt, userId, _id } = post;
+  const { createdAt, desc, image, likes, comments, updatedAt, userId, _id } =
+    post;
 
   const currentUser = useSelector((state) => state.currentUser.user);
   const [reacted, setReacted] = useState(likes?.includes(currentUser?._id));
   const [reacts, setReacts] = useState(likes?.length);
+  const [comment, setComment] = useState();
 
   const handleLike = () => {
     likePost(_id, currentUser?._id);
     setReacted((prev) => !prev);
-    reacted ? setReacts((prev) => prev - 1) : setReacts((prev) => prev + 1)
-  }
+    reacted ? setReacts((prev) => prev - 1) : setReacts((prev) => prev + 1);
+  };
+
+  const handleComment = () => {
+    toast.success("Comment successfully");
+    const userComment = {
+      userId: currentUser?._id,
+      comment,
+    };
+    // console.log(userComment);
+    commentPost(_id, userComment);
+    setComment("");
+  };
 
   return (
     <Card
@@ -47,8 +62,6 @@ const PostCard = ({ post }) => {
         Width: "100%",
         borderRadius: 2,
         p: 2.5,
-        // height: 500,
-        // minHeight: 500
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", pb: 1.5, gap: 2 }}>
@@ -113,27 +126,28 @@ const PostCard = ({ post }) => {
       >
         <PhotoProvider>
           <PhotoView src={image}>
-            <img
-              style={{ cursor: "pointer" }}
-              src={image}
-              alt=""
-            />
+            <img style={{ cursor: "pointer" }} src={image} alt="" />
           </PhotoView>
         </PhotoProvider>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", mx: -1, my: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center", mx: -1, my: 0.4 }}>
         <Box sx={{ width: 0, display: "flex", gap: 0.5 }}>
-          <IconButton color={`${reacted ? 'error': 'white'}`} onClick={handleLike} variant="plain" size="sm">
+          <IconButton
+            color={`${reacted ? "error" : "white"}`}
+            onClick={handleLike}
+            variant="plain"
+            size="sm"
+          >
             <Favorite />
           </IconButton>
           <IconButton variant="plain" size="sm">
             <ModeComment />
           </IconButton>
-          <IconButton variant="plain" size="sm">
-            {/* <SendOutlined /> */}
-          </IconButton>
+          {/* <IconButton variant="plain" size="sm">
+            <SendOutlined />
+          </IconButton> */}
         </Box>
-        <Box
+        {/* <Box
           sx={{ display: "flex", alignItems: "center", gap: 0.5, mx: "auto" }}
         >
           {[...Array(5)].map((_, index) => (
@@ -147,34 +161,44 @@ const PostCard = ({ post }) => {
               }}
             />
           ))}
-        </Box>
+        </Box> */}
         {/* <Box sx={{ width: 0, display: "flex", flexDirection: "row-reverse" }}>
           <IconButton variant="plain" size="sm">
             <BookmarkBorderRoundedIcon />
           </IconButton>
         </Box> */}
       </Box>
-      <Link
+      <Typography
         component="button"
-        underline="none"
         fontSize="sm"
         fontWeight="lg"
         textColor="text.primary"
       >
         {reacts} Likes
-      </Link>
+      </Typography>
+      <CommentsOpenModal post={post} />
+
       <Card sx={{ p: "var(--Card-padding)", display: "flex" }}>
         <IconButton size="sm" variant="plain" sx={{ ml: -1 }}>
           <Face />
         </IconButton>
         <Input
           variant="outlined"
+          name="comment"
           placeholder="Add a comment…"
           sx={{ flexGrow: 1, mr: 1 }}
+          value={comment}
+          onChange={(event) => setComment(event.target.value)}
         />
-        <Button variant="text" color="primary" sx={{ borderRadius: 40 }}>
-          Submit
-        </Button>
+        <IconButton
+          onClick={handleComment}
+          type="submit"
+          variant="text"
+          sx={{ borderRadius: 40 }}
+          size="sm"
+        >
+          <SendOutlined />
+        </IconButton>
       </Card>
     </Card>
   );

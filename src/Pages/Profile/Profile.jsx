@@ -51,13 +51,15 @@ const Profile = () => {
         overflowY: "scroll",
         height: "100vh",
         borderRadius: 2,
+        ml: {lg: 3, md: 0},
+        mt: .8
       }}
     >
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
           <Paper>
             <Box
-              sx={{ width: "100%", height: 180, bgcolor: "primary.main" }}
+              sx={{ width: "100%", height: {md: 280, sm: 180}, bgcolor: "primary.main" }}
             ></Box>
             <Box
               textAlign={"center"}
@@ -84,8 +86,6 @@ const Profile = () => {
 
           <UserDetailsInfo currentUser={currentUser} />
 
-          {/* <CreatePost /> */}
-
           <Paper sx={{ p: 2, mt: 2, Width: "100%" }}>
             <Tabs
               value={tabValue}
@@ -104,12 +104,12 @@ const Profile = () => {
                   Recent Posts
                 </Typography>
                 <StyledDivider />
-                <Grid container spacing={2} justifyContent="center" >
+                <Grid container spacing={2} justifyContent="center">
                   {myPosts?.map((post) => (
                     <Grid
                       item
                       xs={12}
-                      md={6}
+                      // md={6}
                       key={post.id}
                       variant="body1"
                       gutterBottom
