@@ -25,7 +25,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("http://localhost:5000/posts");
+      const response = await fetch("https://snapwave.vercel.app/posts");
       const data = await response.json();
       setPosts(data);
     };
@@ -34,7 +34,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("http://localhost:5000/posts");
+      const response = await fetch("https://snapwave.vercel.app/posts");
       const data = await response.json();
       setPosts(data);
     };

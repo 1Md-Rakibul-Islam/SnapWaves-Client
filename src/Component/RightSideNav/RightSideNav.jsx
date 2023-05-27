@@ -71,7 +71,7 @@ const RightSideNav = () => {
       </ListItem>
       <ListItem disablePadding>
         <ListItemButton sx={{ width: "100%", my: .5 }}>
-          <Link to={"/message"}>
+          <Link to={"/chat"}>
             <Box
               sx={{
                 display: "flex",

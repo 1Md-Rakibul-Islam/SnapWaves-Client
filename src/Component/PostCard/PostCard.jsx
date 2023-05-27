@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
@@ -24,16 +24,49 @@ import {
   Link,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { commentPost, likePost } from "../../api/PostsRequests";
 import { toast } from "react-hot-toast";
 import CommentsOpenModal from "../Modals/CommentsOpenModal";
+import { fetchUser } from "../../api/UsersRequests";
+import { getIdUser } from "../../features/users/userIdSlice";
 
 const PostCard = ({ post }) => {
   const { createdAt, desc, image, likes, comments, updatedAt, userId, _id } =
     post;
 
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser.user);
+  // const postedUser = useSelector((state) => state.getIdUser.userId);
+  // const loading = useSelector((state) => state.currentUser.loading);
+
+  // useEffect(() => {
+  //   dispatch(getIdUser(userId));
+  // }, []);
+
+  // console.log(postedUser?.data);
+  const [postedUser, setPostedUser] = useState({});
+
+  useEffect(() => {
+    try {
+      fetch(`https://snapwave.vercel.app/users/${userId}`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          // authorization: `Bearer ${localStorage.getItem('CodersStackBox')}`,
+        },
+      })
+        .then(res => res.json()) // fix here
+        .then(data => setPostedUser(data.result))
+        .catch(error => console.error(error));
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+  
+  // console.log(postedUser);
+  
+
   const [reacted, setReacted] = useState(likes?.includes(currentUser?._id));
   const [reacts, setReacts] = useState(likes?.length);
   const [comment, setComment] = useState();
@@ -54,6 +87,9 @@ const PostCard = ({ post }) => {
     commentPost(_id, userComment);
     setComment("");
   };
+
+  // const { data } =  fetchUser(userId);
+  // console.log(data);
 
   return (
     <Card
@@ -81,8 +117,7 @@ const PostCard = ({ post }) => {
           }}
         >
           <Avatar
-            size="md"
-            src="/static/logo.png"
+            src={postedUser?.profileImg}
             sx={{
               width: 47,
               height: 47,
@@ -99,7 +134,7 @@ const PostCard = ({ post }) => {
             flexDirection: "column",
           }}
         >
-          <Typography fontWeight="lg">Rakibul Islam</Typography>
+          <Typography fontWeight="lg">{postedUser?.name}</Typography>
           <Typography
             underline="none"
             fontSize="12px"

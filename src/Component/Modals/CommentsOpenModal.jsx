@@ -19,10 +19,14 @@ const CommentsOpenModal = ({ post }) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
+    height: 480,
+    borderRadius: 3,
     bgcolor: "background.paper",
     border: "2px solid #000",
-    boxShadow: 24,
+    boxShadow: 50,
     p: 4,
+    overflowY: "scroll",
+    overflowX: "hidden",
   };
 
   return (

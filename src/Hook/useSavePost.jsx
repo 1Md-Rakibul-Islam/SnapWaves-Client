@@ -7,7 +7,7 @@ export const savePost = (userId, desc, image) => {
         image
     }
 
-    fetch('http://localhost:5000/posts', {
+    fetch('https://snapwave.vercel.app/posts', {
         method: "POST",
         headers: {
             "content-type": "application/json",

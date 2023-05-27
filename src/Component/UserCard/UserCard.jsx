@@ -11,6 +11,7 @@ const UserCard = ({ user }) => {
     <Box
       sx={{
         width: 231,
+        maxHeight: 231,
         display: "flex",
         alignItems: "center",
         flexDirection: "column",

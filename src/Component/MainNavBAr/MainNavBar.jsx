@@ -212,7 +212,7 @@ const MainNavBar = (props) => {
                 </Link>
               </IconButton>
               <IconButton>
-                <Link to={"/message"}>
+                <Link to={"/chat"}>
                   <MailIcon sx={{ fontSize: 28, mx: 0.5, color: "white" }} />
                 </Link>
               </IconButton>
