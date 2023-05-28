@@ -10,10 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { format } from "timeago.js";
-import InputEmoji from "react-input-emoji";
-import { fetchMessages } from "../../api/MessageRequest";
+import { addMessage, fetchMessages } from "../../api/MessageRequest";
 import "./ChatBox.css";
 import SendIcon from "@mui/icons-material/Send";
+
 
 const ChatBox = ({ chat, currentUser }) => {
   const [userData, setUserData] = useState(null);
@@ -61,25 +61,39 @@ const ChatBox = ({ chat, currentUser }) => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Perform actions with the submitted data
     // console.log("Submitted data:", newMessage);
     // Reset the form
-    console.log(newMessage?.message);
-    setNewMessage({
-      message: "",
-    });
+    // console.log(newMessage?.message);
+    const message = {
+      chatId: chat?._id,
+      senderId: currentUser,
+      text: newMessage?.message
+
+    };
+
+    // console.log(message);
+
+    try {
+      const { data } = await addMessage(message);
+      console.log(data);
+      setMessages([...messages, data]);
+      setNewMessage("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
-      <Box sx={{}} className="ChatBox-container">
+      <Box sx={{position: 'relative'}} className="ChatBox-containe">
         {chat ? (
           <>
             <Paper
               elevation={5}
-              sx={{ display: "flex", alignItems: "center", gap: 1.5, p: 1 }}
+              sx={{ width: '100%', display: "flex", position: 'fixed', alignItems: "center", gap: 1.5, p: 1 }}
             >
               <Avatar
                 src={userData?.profileImg}
@@ -88,7 +102,7 @@ const ChatBox = ({ chat, currentUser }) => {
               />
               <h6>{userData?.name}</h6>
             </Paper>
-            <div className="chat-body">
+            <Box sx={{mt: 10}} className="chat-body">
               {messages?.map((message) => (
                 <div
                   className={
@@ -101,8 +115,8 @@ const ChatBox = ({ chat, currentUser }) => {
                   <span>{format(message?.createdAt)}</span>
                 </div>
               ))}
-            </div>
-            <div className="chat-sende">
+            </Box>
+            <Box sx={{position: 'fixed', bottom: 20}} className="chat-send">
               {/* <div>+</div> */}
               {/* <InputEmoji
                       value={newMessage}
@@ -141,10 +155,12 @@ const ChatBox = ({ chat, currentUser }) => {
                   Send
                 </Button>
               </form>
-            </div>
+            </Box>
           </>
         ) : (
-          <Typography variant="h5" textAlign={'center'} my={'auto'}>Tap on a Chat to Start Converstaion</Typography>
+          <Typography variant="h5" textAlign={"center"} my={"auto"}>
+            Tap on a Chat to Start Converstaion
+          </Typography>
         )}
       </Box>
     </>

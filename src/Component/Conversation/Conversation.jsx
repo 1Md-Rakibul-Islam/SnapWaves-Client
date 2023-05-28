@@ -54,16 +54,22 @@ const Conversation = ({ data, currentUserID, online }) => {
   return (
     <>
       <div className="follower conversation">
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1}}>
-          {online && <div className="online-dot"></div>}
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: {md: 'start', sm: 'center'},gap: 1 }}>
+          {/* {online && <div className="online-dot"></div>} */}
           <Avatar
             src={userData?.profileImg}
             alt="Profile"
-            sx={{ width: "50px", height: "50px" }}
+            className="followerImage"
+            sx={{
+              // width: "50px",
+              // height: "50px",
+              backgroundColor: online ? "green" : "red",
+            }}
           />
+          
           <div className="name" style={{ fontSize: "0.8rem" }}>
-            <Typography variant="h6">{userData?.name}</Typography>
-            <p style={{ color: online ? "#51e200" : "" }}>
+            <Typography>{userData?.name}</Typography>
+            <p style={{ color: online ? "#51e200" : "red" }}>
               {online ? "Online" : "Offline"}
             </p>
           </div>

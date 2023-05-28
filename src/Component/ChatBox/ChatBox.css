@@ -21,7 +21,7 @@
 
 .message {
 
-  background: var(--buttonBg);
+  background: linear-gradient(98.63deg, #8324f0 0%, rgba(227, 94, 203, 0.936) 100%);;
   color: white;
   padding: 0.7rem;
   border-radius: 1rem 1rem 1rem 0;
@@ -41,7 +41,7 @@
 .own {
   align-self: flex-end;
   border-radius: 1rem 1rem 0 1rem;
-  background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
+  background: linear-gradient(98.63deg, #24f0f0 0%, #4535f9 100%);
 }
 
 
