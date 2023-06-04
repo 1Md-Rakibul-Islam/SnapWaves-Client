@@ -59,7 +59,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
 
   // Always scroll to last Message
   useEffect(() => {
-    scroll.current?.scrollIntoView({ behavior: "smooth" });
+    scroll?.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleSubmit = async (event) => {
@@ -88,14 +88,6 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   };
 
   // Receive Message from parent component
-  // useEffect(() => {
-  //   if (receivedMessage !== null && receivedMessage?.chatId === chat?.id) {
-  //     console.log(receivedMessage, "ss");
-  //     setMessages([...messages, receivedMessage]);
-  //   }
-  // }, [receivedMessage]);
-
-  // Receive Message from parent component
   useEffect(() => {
     console.log("Message Arrived: ", receivedMessage);
     if (receivedMessage !== null && receivedMessage.chatId === chat?._id) {
@@ -103,7 +95,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
     }
   }, [receivedMessage]);
 
-  console.log("codebr", receivedMessage);
+  // console.log("codebr", receivedMessage);
 
   const scroll = useRef();
 
@@ -130,9 +122,24 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
               />
               <h6>{userData?.name}</h6>
             </Paper>
-            <Box sx={{ my: 10 }} className="chat-body">
+            {/* <Box sx={{ my: 10 }} className="chat-body">
               {messages?.map((message) => (
                 <div
+                  className={
+                    message?.senderId === currentUser
+                      ? "message own"
+                      : "message"
+                  }
+                >
+                  <span>{message?.text}</span>
+                  <span>{format(message?.createdAt)}</span>
+                </div>
+              ))}
+            </Box> */}
+            <Box sx={{ my: 10 }} className="chat-body">
+              {messages?.map((message, index) => (
+                <div
+                  ref={index === messages.length - 1 ? scroll : null} // Add ref to the last message element
                   className={
                     message?.senderId === currentUser
                       ? "message own"
