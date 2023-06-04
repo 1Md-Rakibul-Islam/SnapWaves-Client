@@ -12,7 +12,7 @@ import { Avatar, Container, Divider, IconButton } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import GoogleIcon from "@mui/icons-material/Google";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import toast from "react-hot-toast";
@@ -35,6 +35,8 @@ const SignUp = () => {
   const [createdUserEmail, setCreatedUserEmail] = useState("");
   //   const [token] = useToken(createdUserEmail);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const googleProvider = new GoogleAuthProvider();
 
   //   if (token) {
@@ -52,7 +54,7 @@ const SignUp = () => {
       file: selectedFile,
       //   file: data.get("file"),
       name: data.get("name"),
-      password: data.get("password")
+      password: data.get("password"),
     });
 
     console.log(selectedFile);
@@ -108,7 +110,7 @@ const SignUp = () => {
                     data.get("warks"),
                     data.get("address")
                   );
-                  navigate("/");
+                  navigate(from, { replace: true });
                 })
                 .catch((error) => {
                   console.log(error);
@@ -130,10 +132,9 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         saveUser(
-          "user",
           user?.displayName,
-          user?.email,
           user?.photoURL,
+          user?.email,
           "",
           "",
           "",
@@ -144,7 +145,7 @@ const SignUp = () => {
           "",
           ""
         );
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;

@@ -17,12 +17,13 @@ import CreatePost from "../../Component/CreatePost/CreatePost";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyPosts } from "../../features/posts/myPostsSlice";
 import PostCard from "../../Component/PostCard/PostCard";
+import ProgressLoading from "../../Component/Loadings/Progress";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState(0);
 
-  const currentUser = useSelector((state) => state.currentUser.user);
-  const loading = useSelector((state) => state.currentUser.loading);
+  const currentUser = useSelector((state) => state?.currentUser?.user);
+  const userLoading = useSelector((state) => state?.currentUser?.loading);
 
   const dispatch = useDispatch();
   const myPosts = useSelector((state) => state.getMyPosts.posts);
@@ -43,6 +44,10 @@ const Profile = () => {
     marginBottom: theme.spacing(2),
   }));
 
+  if (userLoading) {
+    return <ProgressLoading />;
+  }
+
   return (
     <Box
       sx={{
@@ -51,15 +56,19 @@ const Profile = () => {
         overflowY: "scroll",
         height: "100vh",
         borderRadius: 2,
-        ml: {lg: 3, md: 0},
-        mt: .8
+        ml: { lg: 3, md: 0 },
+        mt: 0.8,
       }}
     >
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
           <Paper>
             <Box
-              sx={{ width: "100%", height: {md: 280, sm: 180}, bgcolor: "primary.main" }}
+              sx={{
+                width: "100%",
+                height: { md: 280, sm: 180 },
+                bgcolor: "primary.main",
+              }}
             ></Box>
             <Box
               textAlign={"center"}
@@ -76,11 +85,6 @@ const Profile = () => {
                 sx={{ width: 140, height: 140 }}
               />
               <Typography variant="h5">{currentUser?.name}</Typography>
-              <Box>
-                <Box sx={{ p: 2 }}>
-                  <Typography variant="body1">{currentUser?.about}</Typography>
-                </Box>
-              </Box>
             </Box>
           </Paper>
 
@@ -156,7 +160,7 @@ const Profile = () => {
             {tabValue === 2 && (
               <Box sx={{ mt: 2 }}>
                 <Typography variant="h6" gutterBottom>
-                  Friends
+                  Followers
                 </Typography>
                 <StyledDivider />
                 <Box sx={{ display: "flex", flexWrap: "wrap" }}>

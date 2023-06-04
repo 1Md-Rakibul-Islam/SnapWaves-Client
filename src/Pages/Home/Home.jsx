@@ -8,20 +8,28 @@ import User from "../../Component/User/User";
 import { PeopleAltRounded } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../features/users/usersSlice";
+import CardLoadig from "../../Component/Loadings/CardLoading";
+import { getPosts } from "../../features/posts/postSlice";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const currentUser = useSelector((state) => state.currentUser.user);
-  const currentUsers = useSelector((state) => state.currentUser.user);
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUser.user);
   const users = useSelector((state) => state.getUsers.users);
   const loadin = useSelector((state) => state.getUsers.loading);
+  // const posts = useSelector((state) => state.getPosts.posts);
+  // const postLoading = useSelector((state) => state.getPosts.loading);
 
   useEffect(() => {
     dispatch(getUsers());
   }, [users]);
+  
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [posts]);
 
   // console.log(users);
+  // console.log(posts);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -32,14 +40,10 @@ const Home = () => {
     fetchPosts();
   }, [posts]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("https://snapwave.vercel.app/posts");
-      const data = await response.json();
-      setPosts(data);
-    };
-    fetchPosts();
-  }, [posts]);
+  
+  // if(postLoading) {
+  //   return <CardLoadig />
+  // }
 
   return (
     <Container
@@ -72,9 +76,7 @@ const Home = () => {
         {posts?.map((post) => (
           <PostCard post={post} />
         ))}
-        <Box sx={{ display: "flex", justifyContent: "end", mt: 4 }}>
-          <nav aria-label="Page navigation"></nav>
-        </Box>
+
       </Box>
       <Box
         sx={{

@@ -1,18 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchAuthUser } from "../../api/UsersRequests";
+
 
 // Define an async action to fetch the current user
 export const getCurrentUser = createAsyncThunk('getCurrentUser', async (email) => {
-    // console.log('emailD', email);
-  const response = await fetch(`https://snapwave.vercel.app/users?email=${email}`, {
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-      // authorization: `Bearer ${localStorage.getItem('CodersStackBox')}`,
-    },
-  });
-  const data = await response.json();
-  // console.log(data);
-  return data.result;
+  const { data } = await fetchAuthUser(email);
+  // console.log(data?.result);
+  return data?.result;
 });
 
 // Define a slice of the store for the current user

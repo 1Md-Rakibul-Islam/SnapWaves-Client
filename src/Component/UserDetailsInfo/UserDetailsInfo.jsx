@@ -3,7 +3,7 @@ import { Box, Button, Paper, Typography } from "@mui/material";
 import { School, LocationOn, Public, Work } from "@mui/icons-material";
 
 const UserDetailsInfo = ({currentUser}) => {
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <Box sx={{ bgcolor: 'white', p: 3, mb: 2 }}>

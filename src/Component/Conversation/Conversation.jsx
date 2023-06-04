@@ -44,13 +44,15 @@ const Conversation = ({ data, currentUserID, online }) => {
       try {
         const { data } = await fetchUser(userId);
         setUserData(data?.result);
-        console.log(data?.result);
+        // console.log(data?.result);
       } catch (error) {
         console.log(error);
       }
     };
     getUserData();
   }, []);
+
+  
   return (
     <>
       <div className="follower conversation">

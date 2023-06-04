@@ -8,6 +8,7 @@ import Friends from "../Pages/Friends/Friends";
 import Profile from "../Pages/Profile/Profile";
 import Settings from "../Pages/Settings/Settings";
 import Notifications from "../Pages/Notifications/Notifications";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -20,30 +21,49 @@ export const router = createBrowserRouter([
       },
       {
         path: "/notifications",
-        element: <Notifications />,
+        element: (
+          <PrivateRoute>
+            <Notifications />
+          </PrivateRoute>
+        ),
       },
-
+      {
+        path: "/chat",
+        element: (
+          <PrivateRoute>
+            <Chat />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/friends",
-        element: <Friends />,
+        element: (
+          <PrivateRoute>
+            <Friends />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/settings",
-        element: <Settings />,
+        element: (
+          <PrivateRoute>
+            <Settings />
+          </PrivateRoute>
+        ),
       },
       {
         path: "*",
         element: <Error />,
       },
     ],
-  },
-  {
-    path: "/chat",
-    element: <Chat />,
   },
   {
     path: "/signup",

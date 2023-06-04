@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import UserComment from "../UserComment/UserComment";
 
 const CommentsOpenModal = ({ post }) => {
   const { createdAt, desc, image, likes, comments, updatedAt, userId, _id } =
@@ -41,7 +42,7 @@ const CommentsOpenModal = ({ post }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-            {comments?.map(comment => <div>{comment?.comment}</div>)}
+            {comments?.map(comment => <UserComment key={comment?._id} comment={comment}></UserComment>)}
         </Box>
       </Modal>
     </div>

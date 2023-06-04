@@ -32,6 +32,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../features/users/userSlice";
+import ProgressLoading from "../Loadings/Progress";
 
 const drawerWidth = 260;
 
@@ -72,7 +73,7 @@ const MainNavBar = (props) => {
   }, [user?.email]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <ProgressLoading />;
   }
 
   // console.log(currentUser);

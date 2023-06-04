@@ -11,14 +11,17 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IconButton, Paper } from "@mui/material";
 import { AuthContext } from "../../Context/AuthProvider";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
 
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
   const {user, signIn} = useContext(AuthContext);
 
   const handleSubmit = (event) => {
@@ -32,7 +35,8 @@ const Login = () => {
     signIn(data.get("email"), data.get("password"))
     .then(() => {
       toast.success('Login successfully')
-      navigate('/')
+      navigate(from, { replace: true });
+      
     })
     .catch(error => console.error(error));
   };

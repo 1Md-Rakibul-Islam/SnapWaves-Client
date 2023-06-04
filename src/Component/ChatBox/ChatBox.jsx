@@ -12,15 +12,11 @@ import {
 import { format } from "timeago.js";
 import { addMessage, fetchMessages } from "../../api/MessageRequest";
 import "./ChatBox.css";
-import SendIcon from "@mui/icons-material/Send";
 
-
-const ChatBox = ({ chat, currentUser }) => {
+const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
-
   const [newMessage, setNewMessage] = useState("");
-  //   const [newMessage, setNewMessage] = useState("");
 
   // fetch data from header
   useEffect(() => {
@@ -53,6 +49,14 @@ const ChatBox = ({ chat, currentUser }) => {
     if (chat !== null) getMessages();
   }, [chat]);
 
+  // Receive Message from parent component
+  useEffect(() => {
+    if (receiveMessage !== null && receiveMessage?.chatId === chat?.id) {
+      console.log(receiveMessage, "ss");
+      setMessages([...messages, receiveMessage]);
+    }
+  }, [receiveMessage]);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setNewMessage((prevnewMessage) => ({
@@ -63,22 +67,22 @@ const ChatBox = ({ chat, currentUser }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Perform actions with the submitted data
-    // console.log("Submitted data:", newMessage);
-    // Reset the form
     // console.log(newMessage?.message);
     const message = {
       chatId: chat?._id,
       senderId: currentUser,
-      text: newMessage?.message
-
+      text: newMessage?.message,
     };
-
     // console.log(message);
 
+    // send message to socket server
+    const receiverId = chat?.members?.find((id) => id !== currentUser);
+    setSendMessage({ ...message, receiverId });
+
+    // send message to database
     try {
       const { data } = await addMessage(message);
-      console.log(data);
+      //   console.log(data);
       setMessages([...messages, data]);
       setNewMessage("");
     } catch (error) {
@@ -86,23 +90,30 @@ const ChatBox = ({ chat, currentUser }) => {
     }
   };
 
+  console.log("codebr", receiveMessage);
   return (
-    <>
-      <Box sx={{position: 'relative'}} className="ChatBox-containe">
+    <Box>
+      <Paper
+        elevation={5}
+        sx={{
+          display: "flex",
+          // position: "fixed",
+          alignItems: "center",
+          gap: 1.5,
+          p: 1,
+        }}
+      >
+        <Avatar
+          src={userData?.profileImg}
+          alt="Profile"
+          sx={{ width: "50px", height: "50px" }}
+        />
+        <h6>{userData?.name}</h6>
+      </Paper>
+      <Box sx={{ position: "relative" }} className="ChatBox-containe">
         {chat ? (
           <>
-            <Paper
-              elevation={5}
-              sx={{ width: '100%', display: "flex", position: 'fixed', alignItems: "center", gap: 1.5, p: 1 }}
-            >
-              <Avatar
-                src={userData?.profileImg}
-                alt="Profile"
-                sx={{ width: "50px", height: "50px" }}
-              />
-              <h6>{userData?.name}</h6>
-            </Paper>
-            <Box sx={{mt: 10}} className="chat-body">
+            <Box sx={{ my: 10 }} className="chat-body">
               {messages?.map((message) => (
                 <div
                   className={
@@ -116,7 +127,20 @@ const ChatBox = ({ chat, currentUser }) => {
                 </div>
               ))}
             </Box>
-            <Box sx={{position: 'fixed', bottom: 20}} className="chat-send">
+            <Box
+              sx={{
+                position: "fixed",
+                bottom: 50,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                bgcolor: 'white',
+                borderRadius: 10,
+                py: 3,
+                px: {md: 8, xs: 4}
+              }}
+              className="chat-send"
+            >
               {/* <div>+</div> */}
               {/* <InputEmoji
                       value={newMessage}
@@ -138,14 +162,12 @@ const ChatBox = ({ chat, currentUser }) => {
                   name="message"
                   value={newMessage.message}
                   onChange={handleChange}
-                  //   fullWidth
-
+                  
                   InputProps={{
                     sx: {
                       borderRadius: "50px",
                       py: -5,
                       mx: 2,
-                      width: "50vw",
                       mb: 0,
                     },
                   }}
@@ -163,7 +185,7 @@ const ChatBox = ({ chat, currentUser }) => {
           </Typography>
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 
