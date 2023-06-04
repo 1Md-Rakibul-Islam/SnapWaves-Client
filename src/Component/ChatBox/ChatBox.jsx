@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { fetchUser } from "../../api/UsersRequests";
 import {
   Avatar,
@@ -13,10 +13,18 @@ import { format } from "timeago.js";
 import { addMessage, fetchMessages } from "../../api/MessageRequest";
 import "./ChatBox.css";
 
-const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
+const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNewMessage((prevnewMessage) => ({
+      ...prevnewMessage,
+      [name]: value,
+    }));
+  };
 
   // fetch data from header
   useEffect(() => {
@@ -49,21 +57,10 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     if (chat !== null) getMessages();
   }, [chat]);
 
-  // Receive Message from parent component
+  // Always scroll to last Message
   useEffect(() => {
-    if (receiveMessage !== null && receiveMessage?.chatId === chat?.id) {
-      console.log(receiveMessage, "ss");
-      setMessages([...messages, receiveMessage]);
-    }
-  }, [receiveMessage]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setNewMessage((prevnewMessage) => ({
-      ...prevnewMessage,
-      [name]: value,
-    }));
-  };
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -90,29 +87,49 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
     }
   };
 
-  console.log("codebr", receiveMessage);
+  // Receive Message from parent component
+  // useEffect(() => {
+  //   if (receivedMessage !== null && receivedMessage?.chatId === chat?.id) {
+  //     console.log(receivedMessage, "ss");
+  //     setMessages([...messages, receivedMessage]);
+  //   }
+  // }, [receivedMessage]);
+
+  // Receive Message from parent component
+  useEffect(() => {
+    console.log("Message Arrived: ", receivedMessage);
+    if (receivedMessage !== null && receivedMessage.chatId === chat?._id) {
+      setMessages([...messages, receivedMessage]);
+    }
+  }, [receivedMessage]);
+
+  console.log("codebr", receivedMessage);
+
+  const scroll = useRef();
+
   return (
     <Box>
-      <Paper
-        elevation={5}
-        sx={{
-          display: "flex",
-          // position: "fixed",
-          alignItems: "center",
-          gap: 1.5,
-          p: 1,
-        }}
-      >
-        <Avatar
-          src={userData?.profileImg}
-          alt="Profile"
-          sx={{ width: "50px", height: "50px" }}
-        />
-        <h6>{userData?.name}</h6>
-      </Paper>
       <Box sx={{ position: "relative" }} className="ChatBox-containe">
         {chat ? (
           <>
+            {" "}
+            <Paper
+              elevation={5}
+              sx={{
+                display: "flex",
+                // position: "fixed",
+                alignItems: "center",
+                gap: 1.5,
+                p: 1,
+              }}
+            >
+              <Avatar
+                src={userData?.profileImg}
+                alt="Profile"
+                sx={{ width: "50px", height: "50px" }}
+              />
+              <h6>{userData?.name}</h6>
+            </Paper>
             <Box sx={{ my: 10 }} className="chat-body">
               {messages?.map((message) => (
                 <div
@@ -134,10 +151,10 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                bgcolor: 'white',
+                bgcolor: "white",
                 borderRadius: 10,
                 py: 3,
-                px: {md: 8, xs: 4}
+                px: { md: 8, xs: 4 },
               }}
               className="chat-send"
             >
@@ -162,7 +179,6 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
                   name="message"
                   value={newMessage.message}
                   onChange={handleChange}
-                  
                   InputProps={{
                     sx: {
                       borderRadius: "50px",
@@ -180,7 +196,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receiveMessage }) => {
             </Box>
           </>
         ) : (
-          <Typography variant="h5" textAlign={"center"} my={"auto"}>
+          <Typography variant="h4" mt={10} textAlign={"center"}>
             Tap on a Chat to Start Converstaion
           </Typography>
         )}

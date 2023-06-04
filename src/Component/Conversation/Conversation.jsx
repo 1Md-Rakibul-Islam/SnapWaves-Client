@@ -1,11 +1,11 @@
 // import React, { useEffect, useState } from "react";
 // import { fetchUser } from "../../api/UsersRequests";
 
-// const Conversation = ({ data, currentUserID }) => {
+// const Conversation = ({ data, currentUser }) => {
 //   const [userData, setUserData] = useState(null);
 
 //   useEffect(() => {
-//     const userId = data.members.find((id) => id !== currentUserID);
+//     const userId = data.members.find((id) => id !== currentUser);
 //     console.log(userId);
 //     const getUserData = async () => {
 //       try {
@@ -33,18 +33,19 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchUser } from "../../api/UsersRequests";
 import { Avatar, Box, Typography } from "@mui/material";
-const Conversation = ({ data, currentUserID, online }) => {
+const Conversation = ({ data, currentUser, online }) => {
   const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const userId = data.members.find((id) => id !== currentUserID);
+    const userId = data?.members?.find((id) => id !== currentUser);
     console.log(userId);
     const getUserData = async () => {
       try {
         const { data } = await fetchUser(userId);
         setUserData(data?.result);
         // console.log(data?.result);
+        // dispatch({type:"SAVE_USER", data:data})
       } catch (error) {
         console.log(error);
       }

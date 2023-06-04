@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from "react-redux";
-import { usersChats } from "../../api/ChatRequest";
+import {userChats} from "../../api/ChatRequest";
 import Conversation from "../../Component/Conversation/Conversation";
 import ChatBox from "../../Component/ChatBox/ChatBox";
 import { Box, Container, Paper, Typography } from "@mui/material";
@@ -16,16 +16,16 @@ const Chat = () => {
   //   console.log(currentUser);
 
   const [chats, setChats] = useState([]);
-  const [currentChat, setCurrentChat] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
   const [sendMessage, setSendMessage] = useState(null);
-  const [receiveMessage, setReceiveMessage] = useState(null);
+  const [receivedMessage, setReceivedMessage] = useState(null);
 
   // Get the chat in chat section
   useEffect(() => {
     const getChats = async () => {
       try {
-        const { data } = await usersChats(currentUser?._id);
+        const { data } = await userChats(currentUser?._id);
         setChats(data);
         // console.log(data);
       } catch (error) {
@@ -53,36 +53,13 @@ const Chat = () => {
     }
   }, [sendMessage]);
 
-  // receive message from socket server
-  // useEffect( async () => {
-  //   await socket.current.on("receive-message", (data) => {
-  //     console.log(data);
-  //     setReceiveMessage(data);
-  //   });
-  // }, []);
-
-  // console.log(onlineUsers);
-
-  // receive message from socket server
-  // useEffect(() => {
-  //   socket.current.on("receive-message", (data) => {
-  //     console.log(data);
-  //     setReceiveMessage(data);
-  //   });
-
-  //   // Clean up the event listener when the component unmounts
-  //   return () => {
-  //     socket.current.off("receive-message");
-  //   };
-  // }, []);
-
   // Get the message from socket server
-
   useEffect(() => {
-    socket.current.on("receive-message", (data) => {
-      // console.log('recive message from socket', data)
-      setReceiveMessage(data);
+    socket.current.on("recieve-message", (data) => {
+      console.log('recive message from socket', data)
+      setReceivedMessage(data);
     });
+
   }, []);
 
   const checkOnlineStatus = (chat) => {
@@ -93,15 +70,15 @@ const Chat = () => {
     return online ? true : false;
   };
 
-  console.log(receiveMessage);
+  console.log(receivedMessage);
 
   return (
     <Container
-    sx={{
-      columnGap: 5,
-      overflowX: 'hidden'
-    }}
-  >
+      sx={{
+        columnGap: 5,
+        overflowX: "hidden",
+      }}
+    >
       {/* Left Side */}
       <Box
         sx={{
@@ -121,67 +98,7 @@ const Chat = () => {
                 <Conversation
                   key={chat?._id}
                   data={chat}
-                  currentUserID={currentUser?._id}
-                  online={checkOnlineStatus(chat)}
-                />
-              </div>
-            ))}
-            {chats?.map((chat) => (
-              <div onClick={() => setCurrentChat(chat)}>
-                <Conversation
-                  key={chat?._id}
-                  data={chat}
-                  currentUserID={currentUser?._id}
-                  online={checkOnlineStatus(chat)}
-                />
-              </div>
-            ))}
-            {chats?.map((chat) => (
-              <div onClick={() => setCurrentChat(chat)}>
-                <Conversation
-                  key={chat?._id}
-                  data={chat}
-                  currentUserID={currentUser?._id}
-                  online={checkOnlineStatus(chat)}
-                />
-              </div>
-            ))}
-            {chats?.map((chat) => (
-              <div onClick={() => setCurrentChat(chat)}>
-                <Conversation
-                  key={chat?._id}
-                  data={chat}
-                  currentUserID={currentUser?._id}
-                  online={checkOnlineStatus(chat)}
-                />
-              </div>
-            ))}
-            {chats?.map((chat) => (
-              <div onClick={() => setCurrentChat(chat)}>
-                <Conversation
-                  key={chat?._id}
-                  data={chat}
-                  currentUserID={currentUser?._id}
-                  online={checkOnlineStatus(chat)}
-                />
-              </div>
-            ))}
-            {chats?.map((chat) => (
-              <div onClick={() => setCurrentChat(chat)}>
-                <Conversation
-                  key={chat?._id}
-                  data={chat}
-                  currentUserID={currentUser?._id}
-                  online={checkOnlineStatus(chat)}
-                />
-              </div>
-            ))}
-            {chats?.map((chat) => (
-              <div onClick={() => setCurrentChat(chat)}>
-                <Conversation
-                  key={chat?._id}
-                  data={chat}
-                  currentUserID={currentUser?._id}
+                  currentUser={currentUser?._id}
                   online={checkOnlineStatus(chat)}
                 />
               </div>
@@ -195,7 +112,7 @@ const Chat = () => {
           chat={currentChat}
           currentUser={currentUser?._id}
           setSendMessage={setSendMessage}
-          receiveMessage={receiveMessage}
+          receivedMessage={receivedMessage}
         />
       </Box>
     </Container>
