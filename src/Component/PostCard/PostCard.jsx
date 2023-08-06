@@ -49,7 +49,7 @@ const PostCard = ({ post }) => {
 
   useEffect(() => {
     try {
-      fetch(`https://snapwave.vercel.app/users/${userId}`, {
+      fetch(`http://localhost:5000/users/${userId}`, {
         method: 'GET',
         headers: {
           'content-type': 'application/json',

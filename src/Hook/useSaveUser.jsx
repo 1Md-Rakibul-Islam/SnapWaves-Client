@@ -17,7 +17,7 @@ export const saveUser = (name, profileImg, email, education, warks, address) => 
 
     console.log( 'saveUser', user);
 
-    fetch("https://snapwave.vercel.app/users", {
+    fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

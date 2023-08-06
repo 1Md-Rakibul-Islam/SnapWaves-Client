@@ -3,6 +3,9 @@ import { blue, purple } from "@mui/material/colors";
 import React from "react";
 
 const User = ({ user }) => {
+
+  
+
   return (
     <Box
       sx={{

@@ -8,7 +8,6 @@ import User from "../../Component/User/User";
 import { PeopleAltRounded } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../features/users/usersSlice";
-import CardLoadig from "../../Component/Loadings/CardLoading";
 import { getPosts } from "../../features/posts/postSlice";
 
 const Home = () => {
@@ -23,7 +22,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, [users]);
-  
+
   useEffect(() => {
     dispatch(getPosts());
   }, [posts]);
@@ -33,14 +32,13 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("https://snapwave.vercel.app/posts");
+      const response = await fetch("http://localhost:5000/posts");
       const data = await response.json();
       setPosts(data);
     };
     fetchPosts();
   }, [posts]);
 
-  
   // if(postLoading) {
   //   return <CardLoadig />
   // }
@@ -76,7 +74,6 @@ const Home = () => {
         {posts?.map((post) => (
           <PostCard post={post} />
         ))}
-
       </Box>
       <Box
         sx={{

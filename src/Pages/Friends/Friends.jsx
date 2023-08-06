@@ -14,8 +14,6 @@ const Friends = () => {
     dispatch(getUsers());
   }, [users]);
 
-  console.log(users);
-
   return (
     <Grid
       container
